@@ -407,24 +407,12 @@ void ListView::addEventListenerListView(Ref *target, SEL_ListViewEvent selector)
     _listViewEventSelector = selector;
 }
     
-void ListView::selectedItemEvent(int state)
+void ListView::selectedItemEvent(ListViewEventType type)
 {
-    switch (state)
+    if (_listViewEventListener && _listViewEventSelector)
     {
-        case 0:
-            if (_listViewEventListener && _listViewEventSelector)
-            {
-                (_listViewEventListener->*_listViewEventSelector)(this, LISTVIEW_ONSELECTEDITEM_START);
-            }
-            break;
-        default:
-            if (_listViewEventListener && _listViewEventSelector)
-            {
-                (_listViewEventListener->*_listViewEventSelector)(this, LISTVIEW_ONSELECTEDITEM_END);
-            }
-            break;
+        (_listViewEventListener->*_listViewEventSelector)(this, type);
     }
-
 }
     
 void ListView::interceptTouchEvent(int handleState, Widget *sender, const Point &touchPoint)
@@ -442,7 +430,15 @@ void ListView::interceptTouchEvent(int handleState, Widget *sender, const Point 
             }
             parent = dynamic_cast<Widget*>(parent->getParent());
         }
-        selectedItemEvent(handleState);
+        if(handleState == 0){
+            _lastTouchPoint.x = touchPoint.x;
+            _lastTouchPoint.y = touchPoint.y;
+            selectedItemEvent(ListViewEventType::LISTVIEW_ONSELECTEDITEM_START);
+        }else if(handleState > 1){
+            selectedItemEvent(ListViewEventType::LISTVIEW_ONSELECTEDITEM_END);
+            if(abs(touchPoint.x - _lastTouchPoint.x) < 10 && abs(touchPoint.y - _lastTouchPoint.y) < 10)
+                selectedItemEvent(ListViewEventType::LISTVIEW_ONSELECTEDITEM);
+        }
     }
 }
     

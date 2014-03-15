@@ -46,7 +46,8 @@ typedef enum
 typedef enum
 {
     LISTVIEW_ONSELECTEDITEM_START,
-    LISTVIEW_ONSELECTEDITEM_END
+    LISTVIEW_ONSELECTEDITEM_END,
+    LISTVIEW_ONSELECTEDITEM
 }ListViewEventType;
 
 typedef void (Ref::*SEL_ListViewEvent)(Ref*,ListViewEventType);
@@ -197,7 +198,7 @@ protected:
     virtual Widget* createCloneInstance() override;
     virtual void copySpecialProperties(Widget* model) override;
     virtual void copyClonedWidgetChildren(Widget* model) override;
-    void selectedItemEvent(int state);
+    void selectedItemEvent(ListViewEventType type);
     virtual void interceptTouchEvent(int handleState,Widget* sender,const Point &touchPoint) override;
 protected:
     
@@ -209,6 +210,7 @@ protected:
     SEL_ListViewEvent    _listViewEventSelector;
     ssize_t _curSelectedIndex;
     bool _refreshViewDirty;
+    Point _lastTouchPoint;
 };
 
 }
