@@ -135,6 +135,7 @@ public:
 
     TextVAlignment getTextVerticalAlignment();
     
+    Label* getRawLabel() {return _labelRenderer; }
 CC_CONSTRUCTOR_ACCESS:
     virtual bool init() override;
 

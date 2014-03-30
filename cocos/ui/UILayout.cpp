@@ -1366,6 +1366,13 @@ void Layout::setBackGroundColorOpacity(GLubyte opacity)
             break;
     }
 }
+
+void Layout::setBackGroundColorOpacity(GLubyte start, GLubyte end){
+    if(_colorType != LAYOUT_COLOR_GRADIENT)
+        return;
+    _gradientRender->setStartOpacity(start);
+    _gradientRender->setEndOpacity(end);
+}
     
 GLubyte Layout::getBackGroundColorOpacity()
 {
