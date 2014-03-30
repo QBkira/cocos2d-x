@@ -378,15 +378,15 @@ void Slider::setPercent(int percent)
     }
 }
     
-bool Slider::hitTest(const cocos2d::Point &pt)
-{
-    Point nsp = this->_slidBallNormalRenderer->convertToNodeSpace(pt);
-    Rect ballRect = this->_slidBallNormalRenderer->getTextureRect();
-    if (ballRect.containsPoint(nsp)) {
-        return true;
-    }
-    return false;
-}
+//bool Slider::hitTest(const cocos2d::Point &pt)
+//{
+//    Point nsp = this->_slidBallNormalRenderer->convertToNodeSpace(pt);
+//    Rect ballRect = this->_slidBallNormalRenderer->getTextureRect();
+//    if (ballRect.containsPoint(nsp)) {
+//        return true;
+//    }
+//    return false;
+//}
 
 bool Slider::onTouchBegan(Touch *touch, Event *unusedEvent)
 {
