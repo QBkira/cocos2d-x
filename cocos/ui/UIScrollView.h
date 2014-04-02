@@ -352,6 +352,7 @@ protected:
     virtual void handleReleaseLogic(const Point &touchPoint) override;
     virtual void interceptTouchEvent(int handleState,Widget* sender,const Point &touchPoint) override;
     virtual void checkChildInfo(int handleState,Widget* sender,const Point &touchPoint) override;
+    void onMouseWheel(Event* eventMouse);
     void recordSlidTime(float dt);
     void scrollToTopEvent();
     void scrollToBottomEvent();
@@ -416,7 +417,7 @@ protected:
     bool _inertiaScrollEnabled;
 
 
-    
+    EventListenerMouse* _mouseListener;
     Ref* _scrollViewEventListener;
     SEL_ScrollViewEvent _scrollViewEventSelector;
 };
